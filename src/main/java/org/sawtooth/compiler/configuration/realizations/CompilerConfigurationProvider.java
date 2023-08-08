@@ -26,7 +26,7 @@ public class CompilerConfigurationProvider implements ICompilerConfigurationProv
             try {
                 for (File file : files) {
                     compilerConfiguration = parser.Parse(file.getPath());
-                    compilerConfigurationMap.put(compilerConfiguration.langName, compilerConfiguration);
+                    compilerConfigurationMap.put(compilerConfiguration.name, compilerConfiguration);
                 }
             }
             catch (IOException e) {
@@ -36,7 +36,7 @@ public class CompilerConfigurationProvider implements ICompilerConfigurationProv
             throw ioException;
     }
 
-    public CompilerConfiguration TryGetValue(String langName) {
-        return compilerConfigurationMap.get(langName);
+    public synchronized CompilerConfiguration TryGetValue(String name) {
+        return compilerConfigurationMap.get(name);
     }
 }

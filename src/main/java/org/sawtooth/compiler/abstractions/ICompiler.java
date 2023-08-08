@@ -1,5 +1,8 @@
 package org.sawtooth.compiler.abstractions;
 
-public interface ICompiler {
+import org.sawtooth.compiler.configuration.CompilerConfiguration;
+import org.sawtooth.compiler.realizations.CompileResults;
 
+public interface ICompiler {
+    public CompileResults TryCompile(CompilerConfiguration configuration, String assembleName) throws InterruptedException;
 }

@@ -1,3 +1,6 @@
 {
-  "langName": "java"
+  "name": "java",
+  "commands": [
+    "javac -d sources/compiled/{{name}} sources/sources/{{name}}/*.java"
+  ]
 }
