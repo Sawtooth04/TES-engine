@@ -1,6 +1,6 @@
 package org.sawtooth.compiler.configuration.realizations;
 
-import org.sawtooth.compiler.configuration.CompilerConfiguration;
+import org.sawtooth.compiler.configuration.models.CompilerConfiguration;
 import org.sawtooth.compiler.configuration.abstractions.ICompilerConfigurationProvider;
 import org.sawtooth.compiler.configuration.parser.abstractions.ICompilerConfigurationParser;
 

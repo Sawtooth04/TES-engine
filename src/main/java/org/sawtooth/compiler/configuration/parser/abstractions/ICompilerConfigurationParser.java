@@ -1,6 +1,6 @@
 package org.sawtooth.compiler.configuration.parser.abstractions;
 
-import org.sawtooth.compiler.configuration.CompilerConfiguration;
+import org.sawtooth.compiler.configuration.models.CompilerConfiguration;
 
 import java.io.IOException;
 
