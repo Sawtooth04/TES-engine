@@ -9,7 +9,7 @@ public class LaunchThread extends Thread {
     private final LauncherConfiguration configuration;
     private final LaunchResults launchResults;
 
-    LaunchThread(String name, LauncherConfiguration configuration) {
+    public LaunchThread(String name, LauncherConfiguration configuration) {
         super(name);
         this.configuration = configuration;
         this.launchResults = new LaunchResults();

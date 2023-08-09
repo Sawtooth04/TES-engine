@@ -12,6 +12,9 @@ import org.sawtooth.launcher.configuration.abstractions.ILauncherConfigurationPr
 import org.sawtooth.launcher.configuration.realizations.LauncherConfigurationProvider;
 import org.sawtooth.launcher.models.LaunchResults;
 import org.sawtooth.launcher.realizations.Launcher;
+import org.sawtooth.tester.abstractions.ITesterLauncher;
+import org.sawtooth.tester.models.TestLaunchResults;
+import org.sawtooth.tester.realizations.TesterLauncher;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,13 +25,15 @@ public class Main {
             ICompiler compiler = new Compiler();
             ILauncherConfigurationProvider launcherConfigurationProvider = new LauncherConfigurationProvider();
             ILauncher launcher = new Launcher();
+            ITesterLauncher testerLauncher = new TesterLauncher();
 
             //example
             CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("java"), "test");
-            LaunchResults launchResults = launcher.TryLaunch(
+            boolean launchResults = testerLauncher.TryComparedTestLaunch(
                 launcherConfigurationProvider.TryGetLauncherConfigurations("launchConfigurations/test").get(0),
                 "test"
             );
+            System.out.println(launchResults);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

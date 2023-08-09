@@ -1,5 +1,8 @@
 {
   "input": [
     "test input value"
+  ],
+  "expected": [
+    "Это говорит приложение из командной строки: test input value"
   ]
 }
