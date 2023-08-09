@@ -1,10 +1,10 @@
 package org.sawtooth.compiler.realizations;
 
-import org.sawtooth.compiler.configuration.CompilerConfiguration;
+import org.sawtooth.compiler.configuration.models.CompilerConfiguration;
+import org.sawtooth.compiler.models.CompileResults;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class CompileThread extends Thread{
     private final CompilerConfiguration configuration;
@@ -20,18 +20,29 @@ public class CompileThread extends Thread{
         return compileResults;
     }
 
-    public void ExecuteCommand(ProcessBuilder processBuilder, String command) throws IOException, InterruptedException {
-        Process process;
+    private void ReadCompileErrors(Process process) throws IOException {
         String temp;
+
+        while((temp = process.errorReader().readLine()) != null)
+            compileResults.err.add(temp);
+    }
+
+    private void ReadCompileOutput(Process process) throws IOException {
+        String temp;
+
+        while((temp = process.inputReader().readLine()) != null)
+            compileResults.out.add(temp);
+    }
+
+    private void ExecuteCommand(ProcessBuilder processBuilder, String command) throws IOException, InterruptedException {
+        Process process;
 
         processBuilder.command("cmd.exe", "/c", command);
         processBuilder.directory(new File(System.getProperty("user.dir")));
         process = processBuilder.start();
         compileResults.exitCode = process.waitFor();
-        while((temp = process.errorReader().readLine()) != null)
-            compileResults.err.add(temp);
-        while((temp = process.inputReader().readLine()) != null)
-            compileResults.out.add(temp);
+        ReadCompileErrors(process);
+        ReadCompileOutput(process);
     }
 
     public void run() {
