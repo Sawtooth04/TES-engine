@@ -10,10 +10,8 @@ import org.sawtooth.compiler.realizations.Compiler;
 import org.sawtooth.launcher.abstractions.ILauncher;
 import org.sawtooth.launcher.configuration.abstractions.ILauncherConfigurationProvider;
 import org.sawtooth.launcher.configuration.realizations.LauncherConfigurationProvider;
-import org.sawtooth.launcher.models.LaunchResults;
 import org.sawtooth.launcher.realizations.Launcher;
 import org.sawtooth.tester.abstractions.ITesterLauncher;
-import org.sawtooth.tester.models.TestLaunchResults;
 import org.sawtooth.tester.realizations.TesterLauncher;
 
 public class Main {
@@ -28,10 +26,10 @@ public class Main {
             ITesterLauncher testerLauncher = new TesterLauncher();
 
             //example
-            CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("java"), "test");
+            CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("python"), "test_py");
             boolean launchResults = testerLauncher.TryComparedTestLaunch(
-                launcherConfigurationProvider.TryGetLauncherConfigurations("launchConfigurations/test").get(0),
-                "test"
+                launcherConfigurationProvider.TryGetLauncherConfigurations("launchConfigurations/test_py").get(0),
+                "test_py"
             );
             System.out.println(launchResults);
         }
