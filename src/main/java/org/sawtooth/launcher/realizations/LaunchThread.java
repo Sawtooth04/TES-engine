@@ -43,7 +43,7 @@ public class LaunchThread extends Thread {
     }
 
     private void LaunchAssemble(ProcessBuilder processBuilder) throws IOException, InterruptedException {
-        processBuilder.command("cmd.exe", "/c", String.format("java -classpath sources/compiled/%s Main", this.getName()));
+        processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName()));
         processBuilder.directory(new File(System.getProperty("user.dir")));
         Process process = processBuilder.start();
 
