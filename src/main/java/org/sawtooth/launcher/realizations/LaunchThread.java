@@ -8,9 +8,11 @@ import org.sawtooth.launcher.models.LaunchResults;
 public class LaunchThread extends Thread {
     private final LauncherConfiguration configuration;
     private final LaunchResults launchResults;
+    private final boolean isOnWindows;
 
-    public LaunchThread(String name, LauncherConfiguration configuration) {
+    public LaunchThread(boolean isOnWindows, String name, LauncherConfiguration configuration) {
         super(name);
+        this.isOnWindows = isOnWindows;
         this.configuration = configuration;
         this.launchResults = new LaunchResults();
     }
@@ -43,7 +45,10 @@ public class LaunchThread extends Thread {
     }
 
     private void LaunchAssemble(ProcessBuilder processBuilder) throws IOException, InterruptedException {
-        processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName()));
+        if (isOnWindows)
+            processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName()));
+        else
+            processBuilder.command("sh", "-c", configuration.command.replace("{{name}}", this.getName()));
         processBuilder.directory(new File(System.getProperty("user.dir")));
         Process process = processBuilder.start();
 

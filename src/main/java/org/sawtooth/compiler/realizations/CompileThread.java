@@ -9,9 +9,11 @@ import java.io.IOException;
 public class CompileThread extends Thread{
     private final CompilerConfiguration configuration;
     private final CompileResults compileResults;
+    private final boolean isOnWindows;
 
-    CompileThread(String name, CompilerConfiguration configuration){
+    CompileThread(boolean isOnWindows, String name, CompilerConfiguration configuration){
         super(name);
+        this.isOnWindows = isOnWindows;
         this.configuration = configuration;
         compileResults = new CompileResults();
     }
@@ -37,7 +39,10 @@ public class CompileThread extends Thread{
     private void ExecuteCommand(ProcessBuilder processBuilder, String command) throws IOException, InterruptedException {
         Process process;
 
-        processBuilder.command("cmd.exe", "/c", command);
+        if (isOnWindows)
+            processBuilder.command("cmd.exe", "/c", command);
+        else
+            processBuilder.command("sh", "-c", command);
         processBuilder.directory(new File(System.getProperty("user.dir")));
         process = processBuilder.start();
         compileResults.exitCode = process.waitFor();

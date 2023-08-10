@@ -17,13 +17,14 @@ import org.sawtooth.tester.realizations.TesterLauncher;
 public class Main {
     public static void main(String[] args) {
         try {
+            boolean isOnWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
             ICompilerConfigurationParser compilerConfigurationParser = new CompilerConfigurationParser();
             ICompilerConfigurationProvider compilerConfigurationProvider = new CompilerConfigurationProvider(
                 compilerConfigurationParser, "configurations");
-            ICompiler compiler = new Compiler();
+            ICompiler compiler = new Compiler(isOnWindows);
             ILauncherConfigurationProvider launcherConfigurationProvider = new LauncherConfigurationProvider();
-            ILauncher launcher = new Launcher();
-            ITesterLauncher testerLauncher = new TesterLauncher();
+            ILauncher launcher = new Launcher(isOnWindows);
+            ITesterLauncher testerLauncher = new TesterLauncher(isOnWindows);
 
             //example
             CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("python"), "test_py");

@@ -8,6 +8,12 @@ import org.sawtooth.tester.models.TestLaunchResults;
 import java.util.Objects;
 
 public class TesterLauncher implements ITesterLauncher {
+    private final boolean isOnWindows;
+
+    public TesterLauncher(boolean isOnWindows) {
+        this.isOnWindows = isOnWindows;
+    }
+
     private boolean CompareTestLaunchResults(TestLaunchResults testLaunchResults) {
         for (int i = 0; i < testLaunchResults.expected.size(); i++)
             if (!Objects.equals(testLaunchResults.launchResults.out.get(i), testLaunchResults.expected.get(i)))
@@ -24,7 +30,7 @@ public class TesterLauncher implements ITesterLauncher {
     }
 
     public TestLaunchResults TryTestLaunch(LauncherConfiguration configuration, String assembleName) throws InterruptedException {
-        LaunchThread launchThread = new LaunchThread(assembleName, configuration);
+        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, configuration);
         TestLaunchResults testLaunchResults = new TestLaunchResults();
 
         launchThread.start();
