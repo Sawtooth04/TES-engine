@@ -9,9 +9,11 @@ import java.util.Objects;
 
 public class TesterLauncher implements ITesterLauncher {
     private final boolean isOnWindows;
+    private final String sourcesPath;
 
-    public TesterLauncher(boolean isOnWindows) {
+    public TesterLauncher(boolean isOnWindows, String sourcesPath) {
         this.isOnWindows = isOnWindows;
+        this.sourcesPath = sourcesPath;
     }
 
     private boolean CompareTestLaunchResults(TestLaunchResults testLaunchResults) {
@@ -30,7 +32,7 @@ public class TesterLauncher implements ITesterLauncher {
     }
 
     public TestLaunchResults TryTestLaunch(LauncherConfiguration configuration, String assembleName) throws InterruptedException {
-        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, configuration);
+        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, sourcesPath, configuration);
         TestLaunchResults testLaunchResults = new TestLaunchResults();
 
         launchThread.start();

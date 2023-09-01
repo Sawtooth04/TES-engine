@@ -1,6 +1,6 @@
 {
   "name": "java",
   "commands": [
-    "javac -d sources/compiled/{{name}} sources/sources/{{name}}/*.java"
+    "javac -d {{path}}/compiled/{{name}} {{path}}/sources/{{name}}/*.java"
   ]
 }

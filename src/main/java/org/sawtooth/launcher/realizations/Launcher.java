@@ -6,13 +6,15 @@ import org.sawtooth.launcher.models.LaunchResults;
 
 public class Launcher implements ILauncher {
     private final boolean isOnWindows;
+    private final String sourcesPath;
 
-    public Launcher(boolean isOnWindows) {
+    public Launcher(boolean isOnWindows, String sourcesPath) {
         this.isOnWindows = isOnWindows;
+        this.sourcesPath = sourcesPath;
     }
 
     public LaunchResults TryLaunch(LauncherConfiguration configuration, String assembleName) throws InterruptedException {
-        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, configuration);
+        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, sourcesPath, configuration);
 
         launchThread.start();
         synchronized(launchThread) {

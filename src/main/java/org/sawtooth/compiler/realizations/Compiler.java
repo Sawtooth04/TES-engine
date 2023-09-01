@@ -11,8 +11,8 @@ public class Compiler implements ICompiler {
         this.isOnWindows = isOnWindows;
     }
 
-    public CompileResults TryCompile(CompilerConfiguration configuration, String assembleName) throws InterruptedException {
-        CompileThread compileThread = new CompileThread(isOnWindows, assembleName, configuration);
+    public CompileResults TryCompile(CompilerConfiguration configuration, String assembleName, String sourcesPath) throws InterruptedException {
+        CompileThread compileThread = new CompileThread(isOnWindows, assembleName, sourcesPath, configuration);
         compileThread.start();
         synchronized (compileThread) {
             compileThread.wait();

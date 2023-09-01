@@ -23,11 +23,12 @@ public class Main {
                 compilerConfigurationParser, "configurations");
             ICompiler compiler = new Compiler(isOnWindows);
             ILauncherConfigurationProvider launcherConfigurationProvider = new LauncherConfigurationProvider();
-            ILauncher launcher = new Launcher(isOnWindows);
-            ITesterLauncher testerLauncher = new TesterLauncher(isOnWindows);
+            ILauncher launcher = new Launcher(isOnWindows, "sources");
+            ITesterLauncher testerLauncher = new TesterLauncher(isOnWindows, "sources");
 
             //example
-            CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("python"), "test_py");
+            CompileResults compileResults = compiler.TryCompile(compilerConfigurationProvider.TryGetValue("python"),
+                "test_py", "sources");
             boolean launchResults = testerLauncher.TryComparedTestLaunch(
                 launcherConfigurationProvider.TryGetLauncherConfigurations("launchConfigurations/test_py").get(0),
                 "test_py"

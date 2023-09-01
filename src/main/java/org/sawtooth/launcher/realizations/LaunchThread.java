@@ -9,12 +9,14 @@ public class LaunchThread extends Thread {
     private final LauncherConfiguration configuration;
     private final LaunchResults launchResults;
     private final boolean isOnWindows;
+    private final String sourcesPath;
 
-    public LaunchThread(boolean isOnWindows, String name, LauncherConfiguration configuration) {
+    public LaunchThread(boolean isOnWindows, String name, String sourcesPath, LauncherConfiguration configuration) {
         super(name);
         this.isOnWindows = isOnWindows;
         this.configuration = configuration;
         this.launchResults = new LaunchResults();
+        this.sourcesPath = sourcesPath;
     }
 
     public LaunchResults getLaunchResults() {
@@ -46,9 +48,11 @@ public class LaunchThread extends Thread {
 
     private void LaunchAssemble(ProcessBuilder processBuilder) throws IOException, InterruptedException {
         if (isOnWindows)
-            processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName()));
+            processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName())
+                .replace("{{path}}", sourcesPath));
         else
-            processBuilder.command("sh", "-c", configuration.command.replace("{{name}}", this.getName()));
+            processBuilder.command("sh", "-c", configuration.command.replace("{{name}}", this.getName())
+                .replace("{{path}}", sourcesPath));
         processBuilder.directory(new File(System.getProperty("user.dir")));
         Process process = processBuilder.start();
 

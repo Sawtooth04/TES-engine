@@ -1,7 +1,7 @@
 {
   "name": "python",
   "commands": [
-    "rmdir /s /q \"sources/compiled/{{name}}\"",
-    "xcopy /i sources\\sources\\{{name}} sources\\compiled\\{{name}}"
+    "rmdir /s /q \"{{path}}/compiled/{{name}}\"",
+    "xcopy /i {{path}}\\sources\\{{name}} {{path}}\\compiled\\{{name}}"
   ]
 }

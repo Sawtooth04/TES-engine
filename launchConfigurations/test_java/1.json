@@ -1,5 +1,5 @@
 {
-  "command": "java -classpath sources/compiled/{{name}} Main",
+  "command": "java -classpath {{path}}/compiled/{{name}} Main",
   "input": [
     "test input value"
   ],

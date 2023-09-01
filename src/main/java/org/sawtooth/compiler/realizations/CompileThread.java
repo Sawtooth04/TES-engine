@@ -6,15 +6,17 @@ import org.sawtooth.compiler.models.CompileResults;
 import java.io.File;
 import java.io.IOException;
 
-public class CompileThread extends Thread{
+public class CompileThread extends Thread {
     private final CompilerConfiguration configuration;
     private final CompileResults compileResults;
     private final boolean isOnWindows;
+    private final String sourcesPath;
 
-    CompileThread(boolean isOnWindows, String name, CompilerConfiguration configuration){
+    CompileThread(boolean isOnWindows, String name, String sourcesPath, CompilerConfiguration configuration){
         super(name);
         this.isOnWindows = isOnWindows;
         this.configuration = configuration;
+        this.sourcesPath = sourcesPath;
         compileResults = new CompileResults();
     }
 
@@ -55,7 +57,7 @@ public class CompileThread extends Thread{
 
         for (String command : configuration.commands) {
             try {
-                ExecuteCommand(processBuilder, command.replace("{{name}}", getName()));
+                ExecuteCommand(processBuilder, command.replace("{{name}}", getName()).replace("{{path}}", sourcesPath));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
