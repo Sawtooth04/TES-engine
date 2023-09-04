@@ -1,9 +1,9 @@
 package org.sawtooth.compiler.abstractions;
 
-import org.sawtooth.compiler.configuration.models.CompilerConfiguration;
 import org.sawtooth.compiler.models.CompileResults;
+import org.sawtooth.configuration.models.LanguageConfiguration;
 
 public interface ICompiler {
-    public CompileResults TryCompile(CompilerConfiguration configuration, String assembleName, String sourcesPath)
+    public CompileResults TryCompile(LanguageConfiguration configuration, String assembleName, String sourcesPath)
         throws InterruptedException;
 }

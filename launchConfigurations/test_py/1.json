@@ -1,5 +1,4 @@
 {
-  "command": "python {{path}}/compiled/{{name}}/main.py",
   "input": [],
   "expected": [
     "Hello, World!"

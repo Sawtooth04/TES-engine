@@ -1,6 +1,7 @@
 {
   "name": "java",
-  "commands": [
+  "compilingCommands": [
     "javac -d {{path}}/compiled/{{name}} {{path}}/sources/{{name}}/*.java"
-  ]
+  ],
+  "launchingCommand": "java -classpath {{path}}/compiled/{{name}} Main"
 }

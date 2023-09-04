@@ -2,6 +2,8 @@ package org.sawtooth.launcher.realizations;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.sawtooth.configuration.models.LanguageConfiguration;
 import org.sawtooth.launcher.configuration.models.LauncherConfiguration;
 import org.sawtooth.launcher.models.LaunchResults;
 
@@ -48,11 +50,11 @@ public class LaunchThread extends Thread {
 
     private void LaunchAssemble(ProcessBuilder processBuilder) throws IOException, InterruptedException {
         if (isOnWindows)
-            processBuilder.command("cmd.exe", "/c", configuration.command.replace("{{name}}", this.getName())
-                .replace("{{path}}", sourcesPath));
+            processBuilder.command("cmd.exe", "/c", configuration.languageConfiguration.launchingCommand
+                .replace("{{name}}", this.getName()).replace("{{path}}", sourcesPath));
         else
-            processBuilder.command("sh", "-c", configuration.command.replace("{{name}}", this.getName())
-                .replace("{{path}}", sourcesPath));
+            processBuilder.command("sh", "-c", configuration.languageConfiguration.launchingCommand
+                .replace("{{name}}", this.getName()).replace("{{path}}", sourcesPath));
         processBuilder.directory(new File(System.getProperty("user.dir")));
         Process process = processBuilder.start();
 

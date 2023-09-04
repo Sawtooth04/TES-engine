@@ -2,17 +2,19 @@ package org.sawtooth.compiler.realizations;
 
 import org.sawtooth.compiler.configuration.models.CompilerConfiguration;
 import org.sawtooth.compiler.models.CompileResults;
+import org.sawtooth.configuration.models.LanguageConfiguration;
+import org.sawtooth.launcher.configuration.models.LauncherConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 
 public class CompileThread extends Thread {
-    private final CompilerConfiguration configuration;
+    private final LanguageConfiguration configuration;
     private final CompileResults compileResults;
     private final boolean isOnWindows;
     private final String sourcesPath;
 
-    CompileThread(boolean isOnWindows, String name, String sourcesPath, CompilerConfiguration configuration){
+    CompileThread(boolean isOnWindows, String name, String sourcesPath, LanguageConfiguration configuration){
         super(name);
         this.isOnWindows = isOnWindows;
         this.configuration = configuration;
@@ -55,7 +57,7 @@ public class CompileThread extends Thread {
     public void run() {
         ProcessBuilder processBuilder = new ProcessBuilder();
 
-        for (String command : configuration.commands) {
+        for (String command : configuration.compilingCommands) {
             try {
                 ExecuteCommand(processBuilder, command.replace("{{name}}", getName()).replace("{{path}}", sourcesPath));
             } catch (Exception e) {

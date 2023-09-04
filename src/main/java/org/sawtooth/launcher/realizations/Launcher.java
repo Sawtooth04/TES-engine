@@ -13,8 +13,8 @@ public class Launcher implements ILauncher {
         this.sourcesPath = sourcesPath;
     }
 
-    public LaunchResults TryLaunch(LauncherConfiguration configuration, String assembleName) throws InterruptedException {
-        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, sourcesPath, configuration);
+    public LaunchResults TryLaunch(LauncherConfiguration launcherConfiguration, String assembleName) throws InterruptedException {
+        LaunchThread launchThread = new LaunchThread(isOnWindows, assembleName, sourcesPath, launcherConfiguration);
 
         launchThread.start();
         synchronized(launchThread) {
