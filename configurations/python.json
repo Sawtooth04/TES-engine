@@ -2,7 +2,7 @@
   "name": "python",
   "compilingCommands": [
     "rmdir /s /q \"{{path}}/compiled/{{name}}\"",
-    "xcopy /i {{path}}\\sources\\{{name}} {{path}}\\compiled\\{{name}}"
+    "xcopy /i {{path}}/sources/{{name}} {{path}}/compiled/{{name}}"
   ],
   "launchingCommand": "python {{path}}/compiled/{{name}}/main.py"
 }

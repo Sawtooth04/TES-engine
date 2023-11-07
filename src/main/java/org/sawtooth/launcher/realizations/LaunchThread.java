@@ -62,6 +62,7 @@ public class LaunchThread extends Thread {
         this.launchResults.exitCode = process.waitFor();
         this.ReadLaunchErrors(process);
         this.ReadLaunchOutput(process);
+        launchResults.in = configuration.input;
     }
 
     public void run() {
